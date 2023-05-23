@@ -1,6 +1,6 @@
 TARGET := loxone
 
-CC := gcc
+CC := g++
 CFLAGS := -MD -Wall
 
 PREF_SRC := src/
@@ -10,15 +10,15 @@ PREF_INC := $(PREF_SRC)include/
 
 ARCH_NAME := Loxone_test_task
 
-SRCS = $(wildcard $(PREF_SRC)*.c)
-OBJS = $(patsubst $(PREF_SRC)%.c, $(PREF_OBJ)%.o, $(SRCS))
+SRCS = $(wildcard $(PREF_SRC)*.cpp)
+OBJS = $(patsubst $(PREF_SRC)%.cpp, $(PREF_OBJ)%.o, $(SRCS))
 
 all: dir $(TARGET) install
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
 
-$(PREF_OBJ)%.o: $(PREF_SRC)%.c
+$(PREF_OBJ)%.o: $(PREF_SRC)%.cpp
 	$(CC) $(CFLAGS) -c $< -o $@ -I$(PREF_INC)
 
 install:
@@ -35,7 +35,7 @@ clean:
 	rm -f $(ARCH_NAME).zip
 
 zip:
-	@zip $(ARCH_NAME).zip $(PREF_SRC)*.c $(PREF_INC)*.h Makefile README.md
+	@zip $(ARCH_NAME).zip $(PREF_SRC)*.cpp $(PREF_INC)*.h Makefile README.md
 
 .PHONY: all clean zip
 
